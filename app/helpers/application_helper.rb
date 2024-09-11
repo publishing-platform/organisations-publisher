@@ -12,5 +12,5 @@ module ApplicationHelper
     recognized = Rails.application.routes.recognize_path(link)
     recognized[:controller] == params[:controller] &&
       recognized[:action] == params[:action]
-  end  
+  end
 end

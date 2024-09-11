@@ -74,5 +74,5 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   # Allow requests for all domains e.g. <app>.dev.publishing-platform.co.uk
-  config.hosts.clear  
+  config.hosts.clear
 end
