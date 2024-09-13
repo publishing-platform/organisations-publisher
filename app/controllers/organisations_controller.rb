@@ -3,7 +3,7 @@ class OrganisationsController < ApplicationController
 
   def index
     a = OrganisationType.valid_keys
-    puts a
+    Rails.logger.debug a
   end
 
   def new; end
@@ -11,10 +11,10 @@ class OrganisationsController < ApplicationController
   def create
     @organisation.assign_attributes(organisation_params)
 
-    if @organisation.save      
+    if @organisation.save
       redirect_to organisations_path, notice: "Created organisation #{@organisation.name} successfully"
     else
-      puts @organisation.errors.full_messages
+      Rails.logger.debug @organisation.errors.full_messages
       render :new
     end
   end
@@ -26,10 +26,10 @@ private
       :name,
       :abbreviation,
       :organisation_type_key,
-      :status
+      :status,
     ).to_h
   end
-  
+
   def build_organisation
     @organisation = Organisation.new
   end

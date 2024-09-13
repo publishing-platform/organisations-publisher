@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_11_191134) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["content_id"], name: "index_organisations_on_content_id", unique: true
-    t.index ["name"], name: "index_organisations_on_name"
+    t.index ["name"], name: "index_organisations_on_name", unique: true
     t.index ["organisation_type_key"], name: "index_organisations_on_organisation_type_key"
     t.index ["slug"], name: "index_organisations_on_slug", unique: true
   end

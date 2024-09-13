@@ -25,5 +25,5 @@ class OrganisationType
   def initialize(key, data)
     @key = key
     @name = data[:name]
-  end  
-end 
+  end
+end
