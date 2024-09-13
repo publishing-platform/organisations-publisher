@@ -1,0 +1,11 @@
+<% content_for :title, "New organisation" %>
+
+<div class="row">
+  <div class="col-xs-12 col-md-8">
+    <%= form_for @organisation do |f| %>
+      <%= render partial: "form_fields", locals: { f: f, resource: @organisation } %>
+
+      <%= f.submit "Save organisation", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

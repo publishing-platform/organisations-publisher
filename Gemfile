@@ -2,7 +2,9 @@ source "https://rubygems.org"
 
 gem "rails", "~> 7.2.1"
 
+gem "babosa"
 gem "bootsnap", require: false
+gem "friendly_id"
 gem "jbuilder"
 gem "jsbundling-rails"
 gem "pg", "~> 1.1"

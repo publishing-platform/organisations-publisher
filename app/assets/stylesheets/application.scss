@@ -3,3 +3,12 @@
 .container {
   max-width: 960px;
 }
+
+fieldset legend {
+  display: inline-block;
+  width: auto;
+  padding: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  cursor: default; 
+}
