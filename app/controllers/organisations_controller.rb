@@ -42,7 +42,7 @@ private
 
   def load_organisation
     @organisation = Organisation.friendly.find(params[:id])
-  end  
+  end
 
   def filter_organisations
     @organisations = @organisations.filter_by_name(@filter_params[:name]) if @filter_params[:name].present?
@@ -56,5 +56,5 @@ private
 
   def filter_params
     params.permit(:name, :organisation_type_key, :status)
-  end  
+  end
 end
