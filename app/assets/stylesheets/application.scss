@@ -10,6 +10,12 @@
   }
 }
 
+.btn {
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+  }  
+}
+
 fieldset legend {
   display: inline-block;
   width: auto;
