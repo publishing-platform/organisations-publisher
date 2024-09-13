@@ -10,10 +10,10 @@ class CreateOrganisations < ActiveRecord::Migration[7.2]
 
       t.timestamps
 
-      t.index :content_id, unique: true     
+      t.index :content_id, unique: true
       t.index :slug, unique: true
       t.index :organisation_type_key
-      t.index :name
+      t.index :name, unique: true
     end
   end
 end
