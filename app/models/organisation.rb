@@ -6,10 +6,16 @@ class Organisation < ApplicationRecord
   validates :status, presence: true, inclusion: { in: %w[live closed] }
   validates :organisation_type_key, inclusion: { in: OrganisationType.valid_keys }
 
+  scope :filter_by_name, ->(name) { where("organisations.name like ?", "%#{name.strip}%") }  
+
   extend FriendlyId
   friendly_id
 
   def organisation_type_key
     self[:organisation_type_key].nil? ? nil : self[:organisation_type_key].to_sym
+  end
+
+  def base_path
+    "/organisations/#{slug}"
   end
 end

@@ -1,0 +1,32 @@
+<%= form_tag(organisations_path, method: :get) do %>
+  <div class="mb-3">
+    <%= label_tag :name, "Name", class: "form-label" %>
+    <%= search_field_tag :name, nil, value: @filter_params[:name], class: "form-control" %>    
+  </div>   
+
+  <div class="mb-3">
+    <% organisation_types = OrganisationType.all.collect{ |t| [t.name, t.key]} %>    
+    <%= label_tag :organisation_type_key, "Type", class: "form-label" %>
+    <%= select_tag :organisation_type_key, 
+      options_for_select(organisation_types, @filter_params[:organisation_type_key]),
+      include_blank: true, 
+      id: "organisation_type_key",
+      class: "form-control" %>        
+  </div>     
+  
+  <div class="mb-3"> 
+    <%= label_tag :status, "Status", class: "form-label" %>
+    <%= select_tag :status, 
+      options_for_select([["Live", "live"],["Closed", "closed"]], @filter_params[:status]),
+      include_blank: true, 
+      id: "status",
+      class: "form-control" %>        
+  </div>
+
+  <%= submit_tag "Filter", class: "btn btn-primary mb-3" %>  
+
+  <p>
+    <%= link_to "Clear all filters",
+                organisations_path %>
+  </p>  
+<% end %>

@@ -1,0 +1,21 @@
+<table class="table">
+  <caption class="visually-hidden">Document list</caption>
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Slug</th>
+      <th scope="col">Type</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>  
+  <tbody>
+    <% @organisations.each do |organisation| %>
+      <tr>
+        <td><%= link_to organisation.name, organisation %></td>
+        <td><%= organisation.slug %></td>
+        <td><%= OrganisationType.get(organisation.organisation_type_key).name %></td>
+        <td><%= organisation.status.humanize %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
