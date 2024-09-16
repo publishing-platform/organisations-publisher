@@ -16,6 +16,7 @@ class OrganisationsController < ApplicationController
     @organisation.assign_attributes(organisation_params)
 
     if @organisation.save
+      publish_organisation
       redirect_to organisations_path, notice: "Created organisation #{@organisation.name} successfully"
     else
       Rails.logger.debug @organisation.errors.full_messages
@@ -56,5 +57,12 @@ private
 
   def filter_params
     params.permit(:name, :organisation_type_key, :status)
+  end
+
+  def publish_organisation
+    presenter = PublishingApi::OrganisationPresenter.new(@organisation)
+
+    PublishingPlatformApi.publishing_api.put_content(@organisation.content_id, presenter.content)
+    PublishingPlatformApi.publishing_api.publish(@organisation.content_id)
   end
 end
