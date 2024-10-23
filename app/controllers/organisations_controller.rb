@@ -24,7 +24,19 @@ class OrganisationsController < ApplicationController
     end
   end
 
-  def show; end
+  def edit; end
+
+  def update
+    @organisation.assign_attributes(organisation_params)
+
+    if @organisation.save
+      publish_organisation
+      redirect_to organisations_path, notice: "Updated organisation #{@organisation.name} successfully"
+    else
+      Rails.logger.debug @organisation.errors.full_messages
+      render :edit
+    end    
+  end
 
 private
 
