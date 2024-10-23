@@ -11,7 +11,7 @@
   <tbody>
     <% @organisations.each do |organisation| %>
       <tr>
-        <td><%= link_to organisation.name, organisation %></td>
+        <td><%= link_to organisation.name, edit_organisation_path(organisation) %></td>
         <td><%= organisation.slug %></td>
         <td><%= OrganisationType.get(organisation.organisation_type_key).name %></td>
         <td><%= organisation.status.humanize %></td>
