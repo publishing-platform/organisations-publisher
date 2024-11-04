@@ -7,7 +7,7 @@ gem "bootsnap", require: false
 gem "friendly_id"
 gem "jbuilder"
 gem "jsbundling-rails"
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.5"
 gem "publishing_platform_api_adapters"
 gem "publishing_platform_app_config"
 gem "publishing_platform_location"
