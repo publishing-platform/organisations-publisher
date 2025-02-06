@@ -15,8 +15,8 @@ gem "publishing_platform_sso"
 gem "puma", ">= 5.0"
 gem "sassc-rails"
 gem "sprockets-rails"
-gem "tzinfo-data", platforms: %i[mswin mswin64 mingw x64_mingw jruby]
 gem "terser"
+gem "tzinfo-data", platforms: %i[mswin mswin64 mingw x64_mingw jruby]
 
 group :development, :test do
   gem "brakeman", require: false

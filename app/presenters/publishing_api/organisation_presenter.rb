@@ -4,7 +4,7 @@ module PublishingApi
 
     def initialize(organisation)
       self.organisation = organisation
-    end    
+    end
 
     def content
       {
@@ -17,8 +17,8 @@ module PublishingApi
         base_path: organisation.base_path,
         routes: [
           { path: organisation.base_path, type: "prefix" },
-        ],        
-        details:,    
+        ],
+        details:,
       }
     end
 

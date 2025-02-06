@@ -35,7 +35,7 @@ class OrganisationsController < ApplicationController
     else
       Rails.logger.debug @organisation.errors.full_messages
       render :edit
-    end    
+    end
   end
 
 private
