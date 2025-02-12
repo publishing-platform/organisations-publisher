@@ -17,6 +17,7 @@ class OrganisationsController < ApplicationController
 
     if @organisation.save
       publish_organisation
+      publish_organisations_index_page
       redirect_to organisations_path, notice: "Created organisation #{@organisation.name} successfully"
     else
       Rails.logger.debug @organisation.errors.full_messages
@@ -31,6 +32,7 @@ class OrganisationsController < ApplicationController
 
     if @organisation.save
       publish_organisation
+      publish_organisations_index_page
       redirect_to organisations_path, notice: "Updated organisation #{@organisation.name} successfully"
     else
       Rails.logger.debug @organisation.errors.full_messages
@@ -76,5 +78,12 @@ private
 
     PublishingPlatformApi.publishing_api.put_content(@organisation.content_id, presenter.content)
     PublishingPlatformApi.publishing_api.publish(@organisation.content_id)
+  end
+
+  def publish_organisations_index_page
+    presenter = PublishingApi::OrganisationsIndexPresenter.new
+
+    PublishingPlatformApi.publishing_api.put_content(presenter.content_id, presenter.content)
+    PublishingPlatformApi.publishing_api.publish(presenter.content_id)
   end
 end
