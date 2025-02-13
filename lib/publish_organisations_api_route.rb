@@ -21,8 +21,8 @@ private
         document_type: "special_route",
         schema_name: "special_route",
         base_path: BASE_PATH,
-        publishing_app: "organisations-publisher",
-        rendering_app: "collections-frontend",
+        publishing_app: OrganisationsPublisher::PublishingApp::ORGANISATIONS_PUBLISHER,
+        rendering_app: OrganisationsPublisher::RenderingApp::COLLECTIONS_FRONTEND,
         routes: [
           {
             path: BASE_PATH,
