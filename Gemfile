@@ -21,10 +21,17 @@ gem "tzinfo-data", platforms: %i[mswin mswin64 mingw x64_mingw jruby]
 group :development, :test do
   gem "brakeman", require: false
   gem "debug", platforms: %i[mri mswin mswin64 mingw x64_mingw], require: "debug/prelude"
+  gem "factory_bot_rails"
   gem "publishing_platform_rubocop"
+  gem "publishing_platform_test"
+  gem "rspec-rails"
+  gem "webmock", require: false  
 end
 
 group :development do
-  gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
   gem "web-console"
+end
+
+group :test do
+  gem "simplecov"
 end
