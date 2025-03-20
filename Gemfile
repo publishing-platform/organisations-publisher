@@ -25,7 +25,7 @@ group :development, :test do
   gem "publishing_platform_rubocop"
   gem "publishing_platform_test"
   gem "rspec-rails"
-  gem "webmock", require: false  
+  gem "webmock", require: false
 end
 
 group :development do

@@ -1,10 +1,10 @@
-import resolve from "@rollup/plugin-node-resolve"
+import resolve from '@rollup/plugin-node-resolve'
 
 export default {
-  input: "app/javascript/application.js",
+  input: 'app/javascript/application.js',
   output: {
-    file: "app/assets/builds/application.js",
-    format: "esm",
+    file: 'app/assets/builds/application.js',
+    format: 'esm',
     inlineDynamicImports: true,
     sourcemap: true
   },
