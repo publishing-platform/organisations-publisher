@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Organisation do
+RSpec.describe Organisation, type: :model do
   it "is invalid without a name" do
     organisation = build(:organisation, name: nil)
 
