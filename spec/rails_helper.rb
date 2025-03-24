@@ -75,6 +75,12 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  config.include AuthenticationHelper, type: ->(spec) { spec.in?(%i[system request]) }
+
+  config.after :each, type: ->(spec) { spec.in?(%i[system request]) } do
+    reset_authentication
+  end
+
   config.before(:each, type: :system) do
     driven_by :headless_chrome
   end
