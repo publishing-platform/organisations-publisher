@@ -132,6 +132,8 @@ RSpec.describe "/organisations", type: :request do
 
       expect(response.body).to include("Name can't be blank")
       expect(Organisation.count).to be(0)
+      expect(put_request).not_to have_been_requested
+      expect(publish_request).not_to have_been_requested
     end
 
     it "displays error and does not create organisation if organisation_type_key is not provided" do
@@ -144,6 +146,8 @@ RSpec.describe "/organisations", type: :request do
 
       expect(response.body).to include("Organisation type key is not included in the list")
       expect(Organisation.count).to be(0)
+      expect(put_request).not_to have_been_requested
+      expect(publish_request).not_to have_been_requested
     end
 
     it "displays error and does not create organisation if status is not provided" do
@@ -156,6 +160,122 @@ RSpec.describe "/organisations", type: :request do
 
       expect(response.body).to include("Status can't be blank")
       expect(Organisation.count).to be(0)
+      expect(put_request).not_to have_been_requested
+      expect(publish_request).not_to have_been_requested
+    end
+  end
+
+  describe "GET /edit" do
+    let(:organisation) { create(:organisation) }
+
+    it "returns successfully" do
+      get edit_organisation_path(organisation)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "renders a form for editing the organisation" do
+      get edit_organisation_path(organisation)
+
+      expect(response.body).to include("Edit #{organisation.name}")
+      assert_select "form[action='#{organisation_path(organisation.slug)}']" do
+        assert_select "input[name='organisation[name]'][value='#{organisation.name}']"
+        assert_select "select[name='organisation[organisation_type_key]'][id='organisation_organisation_type_key']"
+      end
+    end
+
+    it "sets not found status code if the api user does not exist" do
+      get edit_organisation_path({ id: "non-existent-organisation-id" })
+
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+  describe "PATCH /update" do
+    let(:content_id) { "fde62e52-dfb6-42ae-b336-2c4faf068101" }
+    let(:organisation) { create(:organisation, name: "Original org", content_id:) }
+    let(:success_params) do
+      {
+        organisation: {
+          name: "Updated org",
+          organisation_type_key: "other",
+          status: "closed",
+        },
+      }
+    end
+
+    let!(:put_request) { stub_request(:put, %r{.*publishing-api.*/content/#{content_id}}) }
+    let!(:publish_request) { stub_request(:post, %r{.*publishing-api.*/content/#{content_id}/publish}) }
+
+    it "redirects to organisations path on success" do
+      patch organisation_path(organisation), params: success_params
+      expect(response).to redirect_to(organisations_path)
+      follow_redirect!
+      expect(response.body).to include("Updated organisation Updated org successfully")
+    end
+
+    it "updates organisation" do
+      patch organisation_path(organisation), params: success_params
+
+      organisation.reload
+      expect(organisation.name).to eq "Updated org"
+      expect(organisation.organisation_type_key).to eq :other
+      expect(organisation.status).to eq "closed"
+    end
+
+    it "sends organisation and index page downstream" do
+      patch organisation_path(organisation), params: success_params
+      expect(put_request).to have_been_requested.times(2)
+      expect(publish_request).to have_been_requested.times(2)
+    end
+
+    it "displays error and does not update organisation if name is not provided" do
+      patch organisation_path(organisation), params: {
+        organisation: {
+          name: "",
+          organisation_type_key: "other",
+          status: "closed",
+        },
+      }
+
+      expect(response.body).to include("Name can't be blank")
+      expect(organisation.reload.name).to eq "Original org"
+      expect(put_request).not_to have_been_requested
+      expect(publish_request).not_to have_been_requested
+    end
+
+    it "displays error and does not update organisation if organisation_type_key is not provided" do
+      patch organisation_path(organisation), params: {
+        organisation: {
+          name: "Updated org",
+          organisation_type_key: "",
+          status: "closed",
+        },
+      }
+
+      expect(response.body).to include("Organisation type key is not included in the list")
+      expect(organisation.reload.organisation_type_key).to eq :department
+      expect(put_request).not_to have_been_requested
+      expect(publish_request).not_to have_been_requested
+    end
+
+    it "displays error and does not update organisation if status is not provided" do
+      post organisations_path, params: {
+        organisation: {
+          name: "Updated org",
+          organisation_type_key: "other",
+          status: "",
+        },
+      }
+
+      expect(response.body).to include("Status can't be blank")
+      expect(organisation.reload.status).to eq "live"
+      expect(put_request).not_to have_been_requested
+      expect(publish_request).not_to have_been_requested
+    end
+
+    it "sets not found status code if the api user does not exist" do
+      patch organisation_path({ id: "non-existent-organisation-id" }), params: success_params
+      expect(response).to have_http_status(:not_found)
     end
   end
 end
