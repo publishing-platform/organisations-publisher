@@ -38,7 +38,7 @@ RSpec.describe "/organisations", type: :request do
     it "filters by organisation type" do
       create(:organisation, name: "does-match1", organisation_type_key: :department)
       create(:organisation, name: "does-match2", organisation_type_key: :department)
-      build(:organisation, name: "does-not-match", organisation_type_key: :other).save!(validate: false)
+      create(:organisation, name: "does-not-match", organisation_type_key: :other)
 
       get organisations_path, params: { organisation_type_key: "department" }
 

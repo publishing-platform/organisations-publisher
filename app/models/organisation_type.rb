@@ -1,6 +1,7 @@
 class OrganisationType
   DATA = {
     department: { name: "Department" },
+    other: { name: "Other" },
   }.freeze
 
   cattr_accessor(:instances) { {} }
