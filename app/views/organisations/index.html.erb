@@ -11,6 +11,9 @@
     <%= render "organisations/index/filters" %>
   </div>
   <div class="col-xs-12 col-md-8">
+    <p>
+      <%= t("organisations.index.search_results.summary_html", count: @organisations.count) %>
+    </p>    
     <div style="overflow-x:auto">
       <%= render "organisations/index/results" %>           
     </div>
