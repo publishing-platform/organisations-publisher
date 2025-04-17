@@ -429,7 +429,6 @@ DEPENDENCIES
   publishing_platform_rubocop
   publishing_platform_sso
   publishing_platform_test
-  puma (>= 5.0)
   rails (= 7.2.2)
   rspec-rails
   sassc-rails
