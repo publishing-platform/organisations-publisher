@@ -4,6 +4,7 @@ gem "rails", "7.2.2"
 
 gem "babosa"
 gem "bootsnap", require: false
+gem "dartsass-rails"
 gem "friendly_id"
 gem "jbuilder"
 gem "jsbundling-rails"
@@ -12,7 +13,6 @@ gem "publishing_platform_api_adapters"
 gem "publishing_platform_app_config"
 gem "publishing_platform_location"
 gem "publishing_platform_sso"
-gem "sassc-rails"
 gem "sprockets-rails"
 gem "terser"
 gem "tzinfo-data", platforms: %i[mswin mswin64 mingw x64_mingw jruby]
