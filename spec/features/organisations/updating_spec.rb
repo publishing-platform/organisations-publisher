@@ -1,9 +1,11 @@
 require "rails_helper"
 
-RSpec.describe "Updating an organisation", type: :system do
-  scenario do
+RSpec.feature "Updating an organisation", type: :feature do
+  before do
     create(:user)
+  end
 
+  scenario do
     given_there_is_an_organisation
     when_i_visit_the_edit_organisation_page
     and_i_fill_in_the_fields
@@ -16,6 +18,7 @@ RSpec.describe "Updating an organisation", type: :system do
 
   def when_i_visit_the_edit_organisation_page
     visit edit_organisation_path(@organisation)
+    expect(page).to have_content("Organisations")
   end
 
   def and_i_fill_in_the_fields

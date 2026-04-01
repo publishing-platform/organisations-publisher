@@ -1,15 +1,19 @@
 require "rails_helper"
 
-RSpec.describe "Organisation filtering", type: :system do
-  scenario do
+RSpec.feature "Organisation filtering", type: :feature do
+  before do
     create(:user)
+  end
 
+  scenario do
     given_there_are_some_organisations
     when_i_visit_the_index_page
     then_i_see_all_organisations
 
     when_i_clear_the_filters
-    and_i_filter_by_name
+    then_i_see_all_organisations
+
+    when_i_filter_by_name
     then_i_see_just_the_ones_that_match
 
     when_i_clear_the_filters
@@ -19,11 +23,15 @@ RSpec.describe "Organisation filtering", type: :system do
     then_i_see_just_the_ones_that_match
 
     when_i_clear_the_filters
-    and_i_filter_by_status
+    then_i_see_all_organisations
+
+    when_i_filter_by_status
     then_i_see_just_the_ones_that_match
 
     when_i_clear_the_filters
-    and_i_filter_too_much
+    then_i_see_all_organisations
+
+    when_i_filter_too_much
     then_i_see_there_are_no_results
   end
 
@@ -40,7 +48,7 @@ RSpec.describe "Organisation filtering", type: :system do
     expect(page).to have_content("2 organisations")
   end
 
-  def and_i_filter_by_name
+  def when_i_filter_by_name
     fill_in "name", with: "super"
     click_on "Filter"
   end
@@ -59,12 +67,12 @@ RSpec.describe "Organisation filtering", type: :system do
     click_on "Filter"
   end
 
-  def and_i_filter_by_status
+  def when_i_filter_by_status
     select @relevant_organisation.status.capitalize, from: "status"
     click_on "Filter"
   end
 
-  def and_i_filter_too_much
+  def when_i_filter_too_much
     fill_in "name", with: SecureRandom.uuid
     click_on "Filter"
   end

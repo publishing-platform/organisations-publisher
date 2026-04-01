@@ -28,6 +28,10 @@ Capybara.register_driver :headless_chrome do |app|
   )
 end
 
+# use javascript driver for all feature tests (default is rack_test)
+# javascript driver is assigned in publishing_platform_test to :headless_chrome
+Capybara.default_driver = Capybara.javascript_driver
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -86,13 +90,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include AuthenticationHelper, type: ->(spec) { spec.in?(%i[system request]) }
+  config.include AuthenticationHelper, type: ->(spec) { spec.in?(%i[feature request]) }
 
-  config.after :each, type: ->(spec) { spec.in?(%i[system request]) } do
+  config.after :each, type: ->(spec) { spec.in?(%i[feature request]) } do
     reset_authentication
-  end
-
-  config.before(:each, type: :system) do
-    driven_by :headless_chrome
   end
 end
