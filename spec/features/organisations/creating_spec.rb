@@ -1,9 +1,11 @@
 require "rails_helper"
 
-RSpec.describe "Creating an organisation", type: :system do
-  scenario do
+RSpec.feature "Creating an organisation", type: :feature do
+  before do
     create(:user)
+  end
 
+  scenario do
     given_i_am_on_the_index_page
     when_i_click_to_create_an_organisation
     and_i_fill_in_the_fields
@@ -12,10 +14,12 @@ RSpec.describe "Creating an organisation", type: :system do
 
   def given_i_am_on_the_index_page
     visit organisations_path
+    expect(page).to have_content("Organisations")
   end
 
   def when_i_click_to_create_an_organisation
     click_on "Create new organisation"
+    expect(page).to have_content("New organisation")
   end
 
   def and_i_fill_in_the_fields
