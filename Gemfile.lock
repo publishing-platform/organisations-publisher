@@ -241,7 +241,7 @@ GEM
       sentry-rails (>= 5.3, < 7.0)
       sentry-ruby (~> 5.3)
     publishing_platform_location (0.4.7)
-    publishing_platform_publishing_components (0.9.3)
+    publishing_platform_publishing_components (0.9.4)
       kramdown
       publishing_platform_app_config
       rails (>= 8.0.0)
